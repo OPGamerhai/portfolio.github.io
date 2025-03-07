@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OP Gamer Hai - Gaming Portfolio</title>
+    <style>
+        :root {
+            --primary-color: #00ff00;
+            --secondary-color: #ff00ff;
+            --bg-color: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --text-color: #ffffff;
+            --accent-color: #00ffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        @font-face {
+            font-family: 'Gaming';
+            src: url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap');
+        }
+        
+        body {
+            font-family: 'Orbitron', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 255, 0, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 0, 255, 0.05) 0%, transparent 20%);
+        }
+        
+        header {
+            background: linear-gradient(90deg, #000000, #1e0030, #000000);
+            padding: 2rem 0;
+            text-align: center;
+            border-bottom: 3px solid var(--primary-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before, header::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            animation: glowBorder 3s linear infinite;
+        }
+        
+        header::before {
+            top: 0;
+        }
+        
+        header::after {
+            bottom: 0;
+        }
+        
+        @keyframes glowBorder {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
+        }
+        
+        .glitch-text {
+            position: relative;
+            display: inline-block;
+            text-shadow: 
+                0 0 10px var(--primary-color),
+                0 0 20px var(--secondary-color),
+                0 0 30px var(--accent-color);
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--secondary-color); }
+            100% { text-shadow: 0 0 15px var(--primary-color), 0 0 30px var(--secondary-color), 0 0 45px var(--accent-color); }
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: url('https://cdnjs.cloudflare.com/ajax/libs/gridtile/0.0.1/img/grid.png');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: #cccccc;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin: 3rem 0 2rem;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), var(--secondary-color), transparent);
+        }
+        
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            position: relative;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 10px;
+            border: 2px solid transparent;
+            background: linear-gradient(45deg, var(--primary-color), transparent, var(--secondary-color)) border-box;
+            -webkit-mask:
+                linear-gradient(#fff 0 0) padding-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 
+                0 5px 15px rgba(0, 255, 0, 0.2),
+                0 10px 30px rgba(255, 0, 255, 0.2);
+        }
+        
+        .card:hover::before {
+            opacity: 1;
+        }
+        
+        .card-img {
+            width: 100%;
+            height: 180px;
+            background-color: #222;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-img::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0, 255, 0, 0.2), transparent, rgba(255, 0, 255, 0.2));
+            opacity: 0.5;
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+        }
+        
+        .card-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .card-text {
+            margin-bottom: 1rem;
+            opacity: 0.9;
+            color: #cccccc;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: black;
+            font-weight: bold;
+            padding: 0.6rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: all 0.5s;
+            z-index: -1;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            box-shadow: 0 0 15px var(--primary-color), 0 0 30px var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .social-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 0.7rem 1.2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: all 0.3s;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .social-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease-out;
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-color: rgba(0, 255, 0, 0.8);
+        }
+        
+        .social-btn:hover::after {
+            transform: scaleX(1);
+        }
+        
+        .social-btn i {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+        
+        footer {
+            background: #000000;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 3px solid var(--primary-color);
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            animation: glowBorder 3s linear infinite;
+        }
+        
+        .ad-container {
+            margin: 2rem auto;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 1rem;
+            border-radius: 10px;
+            max-width: 728px;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ad-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary-color), var(--secondary-color));
+            animation: adGlow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes adGlow {
+            0% { height: 30%; top: 0; }
+            100% { height: 30%; top: 70%; }
+        }
+        
+        .ad-placeholder {
+            width: 100%;
+            height: 90px;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        /* Gaming pixels effect for background */
+        .pixel-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.05;
+            background-image: 
+                linear-gradient(to right, var(--primary-color) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--secondary-color) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="pixel-bg"></div>
+    
+    <header>
+        <div class="container">
+            <h1 class="glitch-text">OP Gamer Hai</h1>
+            <p>Game Developer | Blender Artist | Content Creator</p>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container hero-content">
+            <h1 class="glitch-text">Level Up Your Experience</h1>
+            <p>I'm a passionate game developer and 3D artist creating unique gaming experiences and content. Check out my projects below!</p>
+            
+            <div class="social-links">
+                <a href="https://opgamerhai.itch.io/" class="social-btn">
+                    <i class="fa-solid fa-gamepad"></i> Itch.io
+                </a>
+                <a href="https://youtube.com/@black_gamer345" class="social-btn">
+                    <i class="fa-brands fa-youtube"></i> YouTube
+                </a>
+                <a href="https://www.instagram.com/p/DFXxnGzz4I-/" class="social-btn">
+                    <i class="fa-brands fa-instagram"></i> Instagram
+                </a>
+                <a href="https://www.chess.com/member/OP_gamer_hai" class="social-btn">
+                    <i class="fa-solid fa-chess"></i> Chess.com
+                </a>
+                <a href="https://games.app.goo.gl/LURfeaQ6rx9tzy8HA" class="social-btn">
+                    <i class="fa-brands fa-google-play"></i> Google Play
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <div class="ad-container">
+        <div class="ad-placeholder">
+            Advertisement Banner (728x90)
+        </div>
+    </div>
+    
+    <section>
+        <div class="container">
+            <h2 class="section-title">Game Library</h2>
+            <div class="cards">
+                <div class="card">
+                    <div class="card-img">Bhoot Game</div>
+                    <div class="card-content">
+                        <h3 class="card-title">Bhoot</h3>
+                        <p class="card-text">A PC game with unique gameplay mechanics and immersive experience. Play as Bhoot in this adventure!</p>
+                        <a href="https://opgamerhai.itch.io/bhoot" class="btn">Play Now</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-img">Jump Jump Game</div>
+                    <div class="card-content">
+                        <h3 class="card-title">Jump Jump</h3>
+                        <p class="card-text">An Android game focused on jumping mechanics. Test your reflexes in this addictive mobile experience.</p>
+                        <a href="https://opgamerhai.itch.io/jump-jump" class="btn">Download</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-img">Racer95</div>
+                    <div class="card-content">
+                        <h3 class="card-title">Racer95</h3>
+                        <p class="card-text">A thrilling car racing game for PC. Experience high-speed action and challenging tracks!</p>
+                        <a href="https://opgamerhai.itch.io/racer95" class="btn">Race Now</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-img">More Games</div>
+                    <div class="card-content">
+                        <h3 class="card-title">More Games</h3>
+                        <p class="card-text">Check out my full collection of games on itch.io, including my latest releases and projects.</p>
+                        <a href="https://opgamerhai.itch.io/" class="btn">Visit itch.io</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="ad-container">
+        <div class="ad-placeholder">
+            Advertisement Banner (728x90)
+        </div>
+    </div>
+    
+    <section>
+        <div class="container">
+            <h2 class="section-title">Blender Creations</h2>
+            <div class="cards">
+                <div class="card">
+                    <div class="card-img">Blender Projects</div>
+                    <div class="card-content">
+                        <h3 class="card-title">3D Models & Animations</h3>
+                        <p class="card-text">Explore my 3D modeling and animation work created with Blender. Watch tutorials and showcases.</p>
+                        <a href="https://youtube.com/playlist?list=PLlNtoZbXBqiASbRblr7TiespvU1DmkH1r" class="btn">Watch Videos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="ad-container">
+        <div class="ad-placeholder">
+            Advertisement Banner (300x250)
+        </div>
+    </div>
+    
+    <section>
+        <div class="container">
+            <h2 class="section-title">Join My Quest</h2>
+            <div style="text-align: center; max-width: 600px; margin: 0 auto;">
+                <p>Interested in collaborating or have questions about my work? Feel free to reach out through any of my social platforms or send me a message directly!</p>
+                <div style="margin-top: 2rem;">
+                    <a href="mailto:arnavgupta6699@gmail.com" class="btn">Level Up Together</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 OP Gamer Hai. All rights reserved.</p>
+            <p style="margin-top: 1rem;">Contact: <a href="mailto:arnavgupta6699@gmail.com" style="color: var(--primary-color);">arnavgupta6699@gmail.com</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Ad implementation script would go here
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Website loaded successfully. Ready for ad implementation.');
+            // You would add your Google AdSense code here
+        });
+    </script>
+</body>
+</html>
